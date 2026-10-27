@@ -26,14 +26,14 @@ this page describes the workflow. Contributions are made under the project's lic
 In English:
 
 ```
-[XX] Short summary, no final period
+Short summary, no final period
 
 Why: the observed problem, with the measures (date, values, entity).
 What: what changes, the options and entities involved.
 Measured effect: the estimate before → after on a recorded history, when applicable.
 ```
 
-- `XX` = the author's initials (e.g. `[AR]`).
+- No prefix (no initials, no tag): the author is the commit's.
 - Body lines wrapped around 100 columns.
 - Coding agents add the attribution trailers their tool requires (e.g. `Co-Authored-By:`).
 - **One topic per commit.** A refactoring and a behavior change are two commits.

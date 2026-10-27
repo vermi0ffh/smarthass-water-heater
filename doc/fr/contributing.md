@@ -26,14 +26,14 @@ projet, Apache 2.0 ([LICENSE](../../LICENSE)).
 En anglais :
 
 ```
-[XX] Short summary, no final period
+Short summary, no final period
 
 Why: the observed problem, with the measures (date, values, entity).
 What: what changes, the options and entities involved.
 Measured effect: the estimate before → after on a recorded history, when applicable.
 ```
 
-- `XX` = les initiales de l'auteur (par exemple `[AR]`).
+- Pas de préfixe (ni initiales, ni étiquette) : l'auteur est celui du commit.
 - Lignes du corps coupées vers 100 colonnes.
 - Les agents de code ajoutent les mentions d'attribution que leur outil demande (par exemple `Co-Authored-By:`).
 - **Un sujet par commit.** Une refactorisation et un changement de comportement font deux commits.

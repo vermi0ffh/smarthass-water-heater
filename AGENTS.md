@@ -128,7 +128,7 @@ request, with the reason. A rule's number is its identifier in `make review` (`r
 21. **Never commit secrets or personal files**: tokens, Home Assistant exports that are not anonymized.
 22. **No personal data in the repository**: no e-mail address, no token, no personal URL, no exact location; the
     recorded histories of the tests keep only the measures (entity ids renamed, dates kept).
-23. **One topic per commit**, message in English `[XX] Summary` (XX = author's initials), body explaining why and
+23. **One topic per commit**, message in English `Summary` (no prefix: the author is the commit's), body explaining why and
     what, with the measured facts — see [doc/en/contributing.md](doc/en/contributing.md#commit-messages).
     **A refactoring commit does not touch the tests**: unchanged tests passing are what proves the behavior is kept.
 24. **Agents**: commit only when asked, push only when asked, never change the git configuration, never rewrite
