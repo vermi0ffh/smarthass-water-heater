@@ -32,6 +32,7 @@ planner such as Smart Hass - Energy Optimizer) only reads its entities.
 | [doc/agents/model.md](doc/agents/model.md) | The tank model: energy balance, end of heating, meters, restart, parameters |
 | [doc/agents/testing.md](doc/agents/testing.md) | Test families, fixtures, what each test file covers |
 | [doc/agents/review.md](doc/agents/review.md) | `make review`: axes, rule identifiers, derogations, engines |
+| [README.md](README.md) | The repository's front page, which HACS also shows: images and links by absolute GitHub URL (HACS resolves no relative path), a plain `<img>` (HACS prints `<picture>` as text), an image readable on light and dark backgrounds |
 | [doc/en/README.md](doc/en/README.md) ([fr](doc/fr/README.md)) | The user-facing presentation: what it estimates, installation, configuration, entities |
 | [doc/en/hardware.md](doc/en/hardware.md) ([fr](doc/fr/hardware.md)) | The hardware each measure needs, the ESPHome hot water meter example (`doc/examples/`) |
 | [doc/en/contributing.md](doc/en/contributing.md) ([fr](doc/fr/contributing.md)) | Workflow, commit messages, pull requests, changed tests, backward compatibility, releases |
