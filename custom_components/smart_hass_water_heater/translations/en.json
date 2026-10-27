@@ -1,0 +1,244 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Water heater",
+        "description": "The entities Home Assistant already has for the water heater, and the tank. The integration only reads them: it never switches the heater.",
+        "data": {
+          "name": "Name",
+          "relay_entity": "Relay",
+          "power_entity": "Heater power",
+          "energy_entity": "Heater energy",
+          "hot_water_entity": "Hot water meter",
+          "volume_l": "Tank volume",
+          "set_point_c": "Thermostat set point",
+          "losses_w": "Standing losses",
+          "cold_water_c": "Cold water temperature",
+          "learn_losses": "Learn the losses"
+        },
+        "data_description": {
+          "relay_entity": "The switch that powers the heater.",
+          "power_entity": "The power the heater draws (W or kW).",
+          "energy_entity": "Optional: the heater's cumulative energy meter. Without it, the energy is computed from the power.",
+          "hot_water_entity": "Optional: a cumulative meter of the hot water leaving the tank (L or m³), before any mixing valve. Without it, draws are seen only through the heating that follows.",
+          "losses_w": "Heat the tank loses while idle (about 95 W for a 200 L tank).",
+          "cold_water_c": "Temperature of the water entering the tank.",
+          "learn_losses": "Count the losses measured between two full tanks without any draw (12 h at least) in place of the standing losses above. Measured in any case (the Learned losses sensor); off, the estimate counts the standing losses above."
+        }
+      },
+      "reconfigure": {
+        "title": "Water heater entities",
+        "description": "The entities read. The tank's parameters and the estimate stay; a replaced meter is counted from its first reading.",
+        "data": {
+          "relay_entity": "Relay",
+          "power_entity": "Heater power",
+          "energy_entity": "Heater energy",
+          "hot_water_entity": "Hot water meter"
+        },
+        "data_description": {
+          "relay_entity": "The switch that powers the heater.",
+          "power_entity": "The power the heater draws (W or kW).",
+          "energy_entity": "Optional: the heater's cumulative energy meter. Without it, the energy is computed from the power.",
+          "hot_water_entity": "Optional: a cumulative meter of the hot water leaving the tank (L or m³), before any mixing valve. Without it, draws are seen only through the heating that follows."
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "This relay already has a water heater.",
+      "reconfigure_successful": "The water heater now reads the new entities."
+    },
+    "error": {
+      "set_point_not_above_cold_water": "The set point must be above the cold water temperature."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Water heater",
+        "description": "The tank. To change the entities read, reconfigure the water heater.",
+        "data": {
+          "volume_l": "Tank volume",
+          "set_point_c": "Thermostat set point",
+          "losses_w": "Standing losses",
+          "cold_water_c": "Cold water temperature",
+          "learn_losses": "Learn the losses"
+        },
+        "data_description": {
+          "losses_w": "Heat the tank loses while idle (about 95 W for a 200 L tank).",
+          "cold_water_c": "Temperature of the water entering the tank.",
+          "learn_losses": "Count the losses measured between two full tanks without any draw (12 h at least) in place of the standing losses above. Measured in any case (the Learned losses sensor); off, the estimate counts the standing losses above."
+        }
+      }
+    },
+    "error": {
+      "set_point_not_above_cold_water": "The set point must be above the cold water temperature."
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "heat_demand": {
+        "name": "Heat demand",
+        "state_attributes": {
+          "certainty": {
+            "name": "Certainty",
+            "state": {
+              "measured": "Measured",
+              "estimated": "Estimated"
+            }
+          },
+          "loss_threshold_kwh": {
+            "name": "Losses threshold"
+          },
+          "draw_threshold_l": {
+            "name": "Draws threshold"
+          },
+          "energy_before_demand_kwh": {
+            "name": "Losses before demand"
+          },
+          "liters_before_demand_l": {
+            "name": "Draws before demand"
+          }
+        }
+      }
+    },
+    "sensor": {
+      "level_l": {
+        "name": "Hot water"
+      },
+      "level_pct": {
+        "name": "Hot water level",
+        "state_attributes": {
+          "volume_l": {
+            "name": "Volume"
+          },
+          "capacity_kwh": {
+            "name": "Capacity"
+          },
+          "losses_w": {
+            "name": "Standing losses"
+          },
+          "set_point_c": {
+            "name": "Set point"
+          },
+          "cold_water_c": {
+            "name": "Cold water"
+          },
+          "energy_to_full_kwh": {
+            "name": "Energy to full"
+          },
+          "hours_since_full": {
+            "name": "Time since full"
+          },
+          "heat_demand": {
+            "name": "Heat demand"
+          },
+          "heat_demand_measured": {
+            "name": "Heat demand measured"
+          },
+          "loss_threshold_kwh": {
+            "name": "Losses threshold"
+          },
+          "draw_threshold_l": {
+            "name": "Draws threshold"
+          },
+          "energy_before_demand_kwh": {
+            "name": "Losses before demand"
+          },
+          "liters_before_demand_l": {
+            "name": "Draws before demand"
+          },
+          "relay_entity": {
+            "name": "Relay"
+          },
+          "power_entity": {
+            "name": "Heater power"
+          },
+          "energy_entity": {
+            "name": "Heater energy"
+          },
+          "hot_water_entity": {
+            "name": "Hot water meter"
+          }
+        }
+      },
+      "energy_to_full": {
+        "name": "Energy to full"
+      },
+      "hours_since_full": {
+        "name": "Time since full"
+      },
+      "learned_losses": {
+        "name": "Learned losses",
+        "state_attributes": {
+          "configured_losses_w": {
+            "name": "Configured losses"
+          },
+          "losses_in_use_w": {
+            "name": "Losses in use"
+          },
+          "learning_enabled": {
+            "name": "Learning enabled"
+          },
+          "loss_cycles": {
+            "name": "Cycles measured"
+          },
+          "last_loss_cycle_w": {
+            "name": "Last cycle"
+          }
+        }
+      },
+      "last_full": {
+        "name": "Last full"
+      }
+    }
+  },
+  "exceptions": {
+    "unknown_entry": {
+      "message": "No water heater with the configuration entry {entry}."
+    }
+  },
+  "services": {
+    "mark_full": {
+      "name": "Mark full",
+      "description": "The tank is full now (e.g. after a heating the integration did not see).",
+      "fields": {
+        "config_entry_id": {
+          "name": "Water heater",
+          "description": "The water heater concerned."
+        }
+      }
+    },
+    "set_level": {
+      "name": "Set level",
+      "description": "Sets the hot water left, in liters at the set point.",
+      "fields": {
+        "config_entry_id": {
+          "name": "Water heater",
+          "description": "The water heater concerned."
+        },
+        "level_l": {
+          "name": "Hot water",
+          "description": "Liters of hot water at the set point."
+        }
+      }
+    }
+  },
+  "issues": {
+    "missing_relay_entity": {
+      "title": "The relay of {name} no longer exists",
+      "description": "The relay {entity} of the water heater {name} no longer exists (renamed, or its device removed): its hot water level is unavailable. To choose its replacement, reconfigure the water heater: *Settings* > *Devices & services* > *Smart Hass - Water Heater* > ⋮ > *Reconfigure*."
+    },
+    "missing_power_entity": {
+      "title": "The heater power of {name} no longer exists",
+      "description": "The heater power {entity} of the water heater {name} no longer exists (renamed, or its device removed): its hot water level is unavailable. To choose its replacement, reconfigure the water heater: *Settings* > *Devices & services* > *Smart Hass - Water Heater* > ⋮ > *Reconfigure*."
+    },
+    "missing_energy_entity": {
+      "title": "The heater energy meter of {name} no longer exists",
+      "description": "The heater energy meter {entity} of the water heater {name} no longer exists (renamed, or its device removed): its heating is no longer counted. To choose its replacement or remove it, reconfigure the water heater: *Settings* > *Devices & services* > *Smart Hass - Water Heater* > ⋮ > *Reconfigure*."
+    },
+    "missing_hot_water_entity": {
+      "title": "The hot water meter of {name} no longer exists",
+      "description": "The hot water meter {entity} of the water heater {name} no longer exists (renamed, or its device removed): its draws are no longer counted. To choose its replacement or remove it, reconfigure the water heater: *Settings* > *Devices & services* > *Smart Hass - Water Heater* > ⋮ > *Reconfigure*."
+    }
+  }
+}

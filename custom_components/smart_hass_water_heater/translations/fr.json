@@ -1,0 +1,244 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Chauffe-eau",
+        "description": "Les entités que Home Assistant a déjà pour le chauffe-eau, et le ballon. L'intégration ne fait que les lire : elle ne commande jamais le chauffe-eau.",
+        "data": {
+          "name": "Nom",
+          "relay_entity": "Relais",
+          "power_entity": "Puissance de la résistance",
+          "energy_entity": "Énergie de la résistance",
+          "hot_water_entity": "Compteur d'eau chaude",
+          "volume_l": "Volume du ballon",
+          "set_point_c": "Consigne du thermostat",
+          "losses_w": "Pertes à l'arrêt",
+          "cold_water_c": "Température de l'eau froide",
+          "learn_losses": "Apprendre les pertes"
+        },
+        "data_description": {
+          "relay_entity": "L'interrupteur qui alimente la résistance.",
+          "power_entity": "La puissance consommée par la résistance (W ou kW).",
+          "energy_entity": "Facultatif : le compteur d'énergie cumulé de la résistance. Sans lui, l'énergie est calculée à partir de la puissance.",
+          "hot_water_entity": "Facultatif : un compteur cumulé de l'eau chaude qui sort du ballon (L ou m³), avant tout mitigeur. Sans lui, les puisages ne se voient qu'à la chauffe qui suit.",
+          "losses_w": "Chaleur perdue par le ballon au repos (environ 95 W pour 200 L).",
+          "cold_water_c": "Température de l'eau qui entre dans le ballon.",
+          "learn_losses": "Compter les pertes mesurées entre deux pleins sans aucun puisage (12 h au moins) à la place des pertes à l'arrêt ci-dessus. Mesurées dans tous les cas (capteur Pertes apprises) ; désactivé, l'estimation compte les pertes à l'arrêt ci-dessus."
+        }
+      },
+      "reconfigure": {
+        "title": "Entités du chauffe-eau",
+        "description": "Les entités lues. Les paramètres du ballon et l'estimation restent ; un compteur remplacé est compté à partir de sa première lecture.",
+        "data": {
+          "relay_entity": "Relais",
+          "power_entity": "Puissance de la résistance",
+          "energy_entity": "Énergie de la résistance",
+          "hot_water_entity": "Compteur d'eau chaude"
+        },
+        "data_description": {
+          "relay_entity": "L'interrupteur qui alimente la résistance.",
+          "power_entity": "La puissance consommée par la résistance (W ou kW).",
+          "energy_entity": "Facultatif : le compteur d'énergie cumulé de la résistance. Sans lui, l'énergie est calculée à partir de la puissance.",
+          "hot_water_entity": "Facultatif : un compteur cumulé de l'eau chaude qui sort du ballon (L ou m³), avant tout mitigeur. Sans lui, les puisages ne se voient qu'à la chauffe qui suit."
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "Ce relais a déjà un chauffe-eau.",
+      "reconfigure_successful": "Le chauffe-eau lit maintenant les nouvelles entités."
+    },
+    "error": {
+      "set_point_not_above_cold_water": "La consigne doit être supérieure à la température de l'eau froide."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Chauffe-eau",
+        "description": "Le ballon. Pour changer les entités lues, reconfigurez le chauffe-eau.",
+        "data": {
+          "volume_l": "Volume du ballon",
+          "set_point_c": "Consigne du thermostat",
+          "losses_w": "Pertes à l'arrêt",
+          "cold_water_c": "Température de l'eau froide",
+          "learn_losses": "Apprendre les pertes"
+        },
+        "data_description": {
+          "losses_w": "Chaleur perdue par le ballon au repos (environ 95 W pour 200 L).",
+          "cold_water_c": "Température de l'eau qui entre dans le ballon.",
+          "learn_losses": "Compter les pertes mesurées entre deux pleins sans aucun puisage (12 h au moins) à la place des pertes à l'arrêt ci-dessus. Mesurées dans tous les cas (capteur Pertes apprises) ; désactivé, l'estimation compte les pertes à l'arrêt ci-dessus."
+        }
+      }
+    },
+    "error": {
+      "set_point_not_above_cold_water": "La consigne doit être supérieure à la température de l'eau froide."
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "heat_demand": {
+        "name": "En demande",
+        "state_attributes": {
+          "certainty": {
+            "name": "Certitude",
+            "state": {
+              "measured": "Mesurée",
+              "estimated": "Estimée"
+            }
+          },
+          "loss_threshold_kwh": {
+            "name": "Seuil de pertes"
+          },
+          "draw_threshold_l": {
+            "name": "Seuil de puisage"
+          },
+          "energy_before_demand_kwh": {
+            "name": "Pertes avant la demande"
+          },
+          "liters_before_demand_l": {
+            "name": "Puisage avant la demande"
+          }
+        }
+      }
+    },
+    "sensor": {
+      "level_l": {
+        "name": "Eau chaude"
+      },
+      "level_pct": {
+        "name": "Niveau d'eau chaude",
+        "state_attributes": {
+          "volume_l": {
+            "name": "Volume"
+          },
+          "capacity_kwh": {
+            "name": "Capacité"
+          },
+          "losses_w": {
+            "name": "Pertes"
+          },
+          "set_point_c": {
+            "name": "Consigne"
+          },
+          "cold_water_c": {
+            "name": "Eau froide"
+          },
+          "energy_to_full_kwh": {
+            "name": "Énergie jusqu'au plein"
+          },
+          "hours_since_full": {
+            "name": "Temps depuis le plein"
+          },
+          "heat_demand": {
+            "name": "En demande"
+          },
+          "heat_demand_measured": {
+            "name": "Demande mesurée"
+          },
+          "loss_threshold_kwh": {
+            "name": "Seuil de pertes"
+          },
+          "draw_threshold_l": {
+            "name": "Seuil de puisage"
+          },
+          "energy_before_demand_kwh": {
+            "name": "Pertes avant la demande"
+          },
+          "liters_before_demand_l": {
+            "name": "Puisage avant la demande"
+          },
+          "relay_entity": {
+            "name": "Relais"
+          },
+          "power_entity": {
+            "name": "Puissance de la résistance"
+          },
+          "energy_entity": {
+            "name": "Énergie de la résistance"
+          },
+          "hot_water_entity": {
+            "name": "Compteur d'eau chaude"
+          }
+        }
+      },
+      "energy_to_full": {
+        "name": "Énergie jusqu'au plein"
+      },
+      "hours_since_full": {
+        "name": "Temps depuis le plein"
+      },
+      "learned_losses": {
+        "name": "Pertes apprises",
+        "state_attributes": {
+          "configured_losses_w": {
+            "name": "Pertes configurées"
+          },
+          "losses_in_use_w": {
+            "name": "Pertes utilisées"
+          },
+          "learning_enabled": {
+            "name": "Apprentissage activé"
+          },
+          "loss_cycles": {
+            "name": "Cycles mesurés"
+          },
+          "last_loss_cycle_w": {
+            "name": "Dernier cycle"
+          }
+        }
+      },
+      "last_full": {
+        "name": "Dernier plein"
+      }
+    }
+  },
+  "exceptions": {
+    "unknown_entry": {
+      "message": "Aucun chauffe-eau pour l'entrée de configuration {entry}."
+    }
+  },
+  "services": {
+    "mark_full": {
+      "name": "Marquer plein",
+      "description": "Le ballon est plein maintenant (par exemple après une chauffe que l'intégration n'a pas vue).",
+      "fields": {
+        "config_entry_id": {
+          "name": "Chauffe-eau",
+          "description": "Le chauffe-eau concerné."
+        }
+      }
+    },
+    "set_level": {
+      "name": "Fixer le niveau",
+      "description": "Fixe l'eau chaude restante, en litres à la consigne.",
+      "fields": {
+        "config_entry_id": {
+          "name": "Chauffe-eau",
+          "description": "Le chauffe-eau concerné."
+        },
+        "level_l": {
+          "name": "Eau chaude",
+          "description": "Litres d'eau chaude à la consigne."
+        }
+      }
+    }
+  },
+  "issues": {
+    "missing_relay_entity": {
+      "title": "Le relais de {name} n'existe plus",
+      "description": "Le relais {entity} du chauffe-eau {name} n'existe plus (renommé, ou son appareil supprimé) : son niveau d'eau chaude est indisponible. Pour choisir son remplaçant, reconfigurez le chauffe-eau : *Paramètres* > *Appareils et services* > *Smart Hass - Water Heater* > ⋮ > *Reconfigurer*."
+    },
+    "missing_power_entity": {
+      "title": "La puissance de la résistance de {name} n'existe plus",
+      "description": "La puissance de la résistance {entity} du chauffe-eau {name} n'existe plus (renommée, ou son appareil supprimé) : son niveau d'eau chaude est indisponible. Pour choisir son remplaçant, reconfigurez le chauffe-eau : *Paramètres* > *Appareils et services* > *Smart Hass - Water Heater* > ⋮ > *Reconfigurer*."
+    },
+    "missing_energy_entity": {
+      "title": "Le compteur d'énergie de {name} n'existe plus",
+      "description": "Le compteur d'énergie de la résistance {entity} du chauffe-eau {name} n'existe plus (renommé, ou son appareil supprimé) : sa chauffe n'est plus comptée. Pour choisir son remplaçant ou le retirer, reconfigurez le chauffe-eau : *Paramètres* > *Appareils et services* > *Smart Hass - Water Heater* > ⋮ > *Reconfigurer*."
+    },
+    "missing_hot_water_entity": {
+      "title": "Le compteur d'eau chaude de {name} n'existe plus",
+      "description": "Le compteur d'eau chaude {entity} du chauffe-eau {name} n'existe plus (renommé, ou son appareil supprimé) : ses puisages ne sont plus comptés. Pour choisir son remplaçant ou le retirer, reconfigurez le chauffe-eau : *Paramètres* > *Appareils et services* > *Smart Hass - Water Heater* > ⋮ > *Reconfigurer*."
+    }
+  }
+}

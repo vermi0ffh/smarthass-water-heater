@@ -1,0 +1,96 @@
+# Hot water meter with a pulse output (1 pulse per liter) on an ESP8266, for Smart Hass - Water Heater.
+# The meter's dry contact is wired between GPIO14 (D5 on a D1 Mini) and GND. See doc/en/hardware.md.
+# The secrets (Wi-Fi, API key, OTA password) go in ESPHome's secrets.yaml.
+
+esphome:
+  name: hot-water-meter
+  friendly_name: Hot water meter
+  on_boot:
+    priority: -100  # after the sensors are set up
+    then:
+      # Publish the restored total right away, instead of "unknown" until the first liter
+      - lambda: id(hot_water_total).publish_state(id(hot_water_liters));
+
+esp8266:
+  board: d1_mini
+  # Keep the total in flash: without it, an ESP8266 keeps it only in RTC memory, lost on a power cut
+  restore_from_flash: true
+
+preferences:
+  # Write the total to flash at most every 5 min, and only when it changed (default 1 min): fewer flash writes,
+  # at most 5 min of liters lost on a power cut
+  flash_write_interval: 5min
+
+logger:
+
+api:
+  encryption:
+    key: !secret api_encryption_key
+
+ota:
+  - platform: esphome
+    password: !secret ota_password
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  min_auth_mode: WPA2
+  ap:
+    ssid: "Hot Water Meter Fallback"
+    password: !secret fallback_ap_password
+
+captive_portal:
+
+globals:
+  # Liters counted, restored after a reboot (an update, a power cut). Changing its id or type loses the stored value
+  # once: the total starts again from 0, which the integration takes for a meter reset.
+  - id: hot_water_liters
+    type: float
+    restore_value: true
+    initial_value: "0"
+
+binary_sensor:
+  - platform: gpio
+    id: hot_water_contact
+    name: "Hot water meter contact"
+    pin:
+      number: GPIO14
+      allow_other_uses: true
+      mode: INPUT_PULLUP
+      inverted: true
+    filters:
+      # The contact bounces when it closes: one liter is counted once.
+      - delayed_on: 50ms
+      - delayed_off: 50ms
+    on_press:
+      then:
+        - lambda: |-
+            id(hot_water_liters) += 1;
+            id(hot_water_total).publish_state(id(hot_water_liters));
+
+sensor:
+  # The cumulative total: the integration's "Hot water meter".
+  - platform: template
+    id: hot_water_total
+    name: "Hot water"
+    unit_of_measurement: "L"
+    device_class: water
+    state_class: total_increasing
+    accuracy_decimals: 0
+
+  # The flow, for dashboards (back to 0 after 10 s without a pulse).
+  - platform: pulse_meter
+    id: hot_water_flow
+    name: "Hot water flow"
+    pin:
+      number: GPIO14
+      allow_other_uses: true
+      inverted: true
+      mode:
+        input: true
+        pullup: true
+    internal_filter: 300ms
+    timeout: 10s
+    unit_of_measurement: "L/min"
+    device_class: volume_flow_rate
+    icon: mdi:water

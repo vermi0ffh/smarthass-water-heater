@@ -1,0 +1,40 @@
+{
+  "entity": {
+    "binary_sensor": {
+      "heat_demand": {
+        "default": "mdi:fire-off",
+        "state": {
+          "on": "mdi:fire"
+        }
+      }
+    },
+    "sensor": {
+      "level_l": {
+        "default": "mdi:water-boiler"
+      },
+      "level_pct": {
+        "default": "mdi:water-percent"
+      },
+      "energy_to_full": {
+        "default": "mdi:lightning-bolt"
+      },
+      "hours_since_full": {
+        "default": "mdi:timer-sand"
+      },
+      "learned_losses": {
+        "default": "mdi:thermometer-minus"
+      },
+      "last_full": {
+        "default": "mdi:water-check"
+      }
+    }
+  },
+  "services": {
+    "mark_full": {
+      "service": "mdi:water-check"
+    },
+    "set_level": {
+      "service": "mdi:water-sync"
+    }
+  }
+}

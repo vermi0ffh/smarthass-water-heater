@@ -1,0 +1,38 @@
+name: CI
+
+# Forgejo's CI (the private repository's runner). With this folder Forgejo ignores .github/workflows/, which
+# GitHub runs on the public copy: the same checks there, with hassfest and the HACS validation.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    name: Lint, typecheck, tests
+    runs-on: linux-amd64
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: uv
+        run: |
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Install
+        run: make install
+
+      - name: Lint
+        run: make lint
+
+      - name: Typecheck
+        run: make typecheck
+
+      - name: Tests
+        run: make test

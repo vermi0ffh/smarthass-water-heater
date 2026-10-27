@@ -1,0 +1,13 @@
+{
+  "domain": "smart_hass_water_heater",
+  "name": "Smart Hass - Water Heater",
+  "codeowners": ["@vermi0ffh"],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/vermi0ffh/smarthass-water-heater",
+  "integration_type": "device",
+  "iot_class": "calculated",
+  "issue_tracker": "https://github.com/vermi0ffh/smarthass-water-heater/issues",
+  "requirements": [],
+  "version": "0.1.0"
+}

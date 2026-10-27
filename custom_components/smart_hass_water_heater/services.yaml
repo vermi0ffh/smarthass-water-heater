@@ -1,0 +1,23 @@
+mark_full:
+  fields:
+    config_entry_id:
+      required: true
+      selector:
+        config_entry:
+          integration: smart_hass_water_heater
+set_level:
+  fields:
+    config_entry_id:
+      required: true
+      selector:
+        config_entry:
+          integration: smart_hass_water_heater
+    level_l:
+      required: true
+      selector:
+        number:
+          min: 0
+          max: 1000
+          step: 0.1
+          unit_of_measurement: L
+          mode: box
