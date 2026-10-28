@@ -35,7 +35,9 @@ Measured effect: the estimate before → after on a recorded history, when appli
 
 - Pas de préfixe (ni initiales, ni étiquette) : l'auteur est celui du commit.
 - Lignes du corps coupées vers 100 colonnes.
-- Les agents de code ajoutent les mentions d'attribution que leur outil demande (par exemple `Co-Authored-By:`).
+- Pas d'attribution d'outil : les agents de code n'ajoutent aux commits et aux pull requests aucune mention de leur
+  outil (ni `Co-Authored-By:` pour l'agent, ni « Generated with … », ni lien de session). Une personne qui a
+  co-écrit le changement est créditée par `Co-authored-by:`.
 - **Un sujet par commit.** Une refactorisation et un changement de comportement font deux commits.
 - **Un commit de refactorisation ne touche pas aux tests** : les tests inchangés qui passent prouvent que le
   comportement est conservé.

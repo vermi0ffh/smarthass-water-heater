@@ -132,7 +132,8 @@ request, with the reason. A rule's number is its identifier in `make review` (`r
     what, with the measured facts — see [doc/en/contributing.md](doc/en/contributing.md#commit-messages).
     **A refactoring commit does not touch the tests**: unchanged tests passing are what proves the behavior is kept.
 24. **Agents**: commit only when asked, push only when asked, never change the git configuration, never rewrite
-    published history.
+    published history, no tool attribution in commits or pull requests (no `Co-Authored-By:` for the agent, no
+    "Generated with …", no session link).
 
 ### Estimates that drive decisions
 
