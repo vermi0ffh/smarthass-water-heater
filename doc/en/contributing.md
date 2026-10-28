@@ -35,7 +35,9 @@ Measured effect: the estimate before → after on a recorded history, when appli
 
 - No prefix (no initials, no tag): the author is the commit's.
 - Body lines wrapped around 100 columns.
-- Coding agents add the attribution trailers their tool requires (e.g. `Co-Authored-By:`).
+- No tool attribution: coding agents add no trailer or line naming their tool to commits or pull requests (no
+  `Co-Authored-By:` for the agent, no "Generated with …", no session link). A person who co-wrote the change is
+  credited with `Co-authored-by:`.
 - **One topic per commit.** A refactoring and a behavior change are two commits.
 - **A refactoring commit does not touch the tests**: the unchanged tests passing prove the behavior is kept.
 
